@@ -1648,20 +1648,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
    new G4PVPlacement(0,pos170,Logg6, "Silindir6", logicEnv, false, 0);
    auto SurfaceVisAtt_6 = new G4VisAttributes(G4Colour::Yellow());
    Logg6->SetVisAttributes(SurfaceVisAtt_6);
-   
-   /*
-   //7
-   G4double Interradius_7 = 70.*cm;
-   G4double Outerradius_7 = 90.*cm;
-   G4double Length_7 = 213.0*cm;
-   auto Silindir7 = new G4Tubs("Silindir7", Interradius_7, Outerradius_7, Length_7, Start_Angle_BeamPipe, SpanningAngle_BeamPipe);
-   auto Logg7 = new G4LogicalVolume(Silindir7, Vacuum, "Silindir7");
-   new G4PVPlacement(0,pos1,Logg7, "Silindir7", logicEnv, false, 0);
-   auto SurfaceVisAtt_7 = new G4VisAttributes(G4Colour::Yellow());
-   SurfaceVisAtt_7->SetVisibility(true);
-   SurfaceVisAtt_7->SetForceWireframe(true);
-   Logg7->SetVisAttributes(SurfaceVisAtt_7);
-   */
+
     fScoringVolume = logicEnv;
 
     return physWorld;
