@@ -1,0 +1,27 @@
+# Initialize kernel
+/run/initialize
+#
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 1
+#
+/gps/particle proton
+/gps/energy 5 GeV
+/gps/pos/type Point
+/gps/pos/centre 0 0 -350 mm
+/gps/pos/radius 0 mm
+/gps/direction 0 0 1
+#
+
+/gps/source/add 1
+/gps/particle proton
+/gps/energy 5 GeV
+/gps/pos/type Point
+/gps/pos/centre 0 0 350 mm
+/gps/pos/radius 0 mm
+/gps/direction 0 0 -1
+
+#
+#/gps/source/multiplevertex true
+/run/beamOn 100
