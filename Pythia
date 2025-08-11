@@ -1,1 +1,82 @@
+   #include "Pythia8/Pythia.h"
+   #include "HepMC3/WriterAscii.h"
+   #include "HepMC3/GenEvent.h"
+   #include "HepMC3/GenVertex.h"
+   #include "HepMC3/GenParticle.h"
+   #include "HepMC3/Units.h"
+   #include "HepMC3/GenCrossSection.h"
+   #include <memory>
+   #include <iostream>
 
+  using namespace Pythia8;
+  using namespace HepMC3;
+
+  int main() {
+    Pythia pythia;
+
+    
+    pythia.readString("Beams:idA = 2212");      
+    pythia.readString("Beams:idB = -2212");      
+    pythia.readString("Beams:eCM = 13000");  
+    pythia.readString("HardQCD:all = on");    
+    //pythia.readString("Higgs:gg2H = on");   
+    pythia.readString("Beams:frameType = 1");
+    pythia.init();
+
+    
+    WriterAscii hepmc3Writer("proton_collision13TeV.hepmc3");
+
+   
+    for (int iEvent = 0; iEvent < 100000; ++iEvent) {
+        if (!pythia.next()) continue;
+
+        
+        auto event = std::make_shared<GenEvent>(Units::GEV, Units::MM);
+        event->set_event_number(iEvent);
+
+        
+        auto productionVertex = std::make_shared<GenVertex>(
+            FourVector(0.0, 0.0, 0.0, 0.0)
+        );
+        event->add_vertex(productionVertex);
+
+       
+        for (int i = 1; i <= 2; ++i) {
+            auto incomingParticle = std::make_shared<GenParticle>(
+                FourVector(
+                    pythia.event[i].px(),
+                    pythia.event[i].py(),
+                    pythia.event[i].pz(),
+                    pythia.event[i].e()
+                ),
+                pythia.event[i].id(),
+                -1 
+            );
+            productionVertex->add_particle_in(incomingParticle);
+        }
+
+        
+        for (int i = 0; i < pythia.event.size(); ++i) {
+            if (!pythia.event[i].isFinal()) continue;
+            auto particle = std::make_shared<GenParticle>(
+                FourVector(
+                    pythia.event[i].px(),
+                    pythia.event[i].py(),
+                    pythia.event[i].pz(),
+                    pythia.event[i].e()
+                ),
+                pythia.event[i].id(),
+                1 
+            );
+            productionVertex->add_particle_out(particle);
+        }
+
+        
+        hepmc3Writer.write_event(*event);
+    }
+
+    pythia.stat();
+    hepmc3Writer.close();
+
+    return 0;
+}
