@@ -1,8 +1,0 @@
-/home/meteyanpar/work/B11/build/CMakeFiles/exampleB1.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/B1.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/edit_cache.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/rebuild_cache.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/list_install_components.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/install.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/install/local.dir
-/home/meteyanpar/work/B11/build/CMakeFiles/install/strip.dir
